@@ -20,3 +20,8 @@ picotool load -f ./main.uf2
 
 Requires: build, upload
 
+### serial
+
+```
+minicom --device=/dev/tty.usbmodem21301
+```

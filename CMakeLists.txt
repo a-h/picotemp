@@ -27,7 +27,8 @@ add_executable(main
 target_link_libraries(main
   pico_stdlib
   hardware_pwm
-  pico_cyw43_arch_none
+  pico_cyw43_arch_none # require to flash the LED
+  hardware_adc # required to read temperature
 )
 
 # Add the UART.
