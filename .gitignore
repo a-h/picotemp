@@ -11,3 +11,5 @@ main.dis
 main.elf*
 main.hex
 main.uf2
+.ccls-cache
+compile_commands.json

@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # initialize the SDK based on PICO_SDK_PATH
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
@@ -25,6 +27,7 @@ add_executable(main
 target_link_libraries(main
   pico_stdlib
   hardware_pwm
+  pico_cyw43_arch_none
 )
 
 # Add the UART.
