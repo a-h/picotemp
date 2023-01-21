@@ -41,6 +41,21 @@ int main() {
   adc_set_temp_sensor_enabled(true);
   adc_select_input(4);
 
+  if (cyw43_arch_init()) {
+    printf("failed to initialise\n");
+    return 1;
+  }
+  cyw43_arch_enable_sta_mode();
+
+  printf("Connecting to WiFi...\n");
+  if (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD,
+                                         CYW43_AUTH_WPA2_AES_PSK, 30000)) {
+    printf("failed to connect.\n");
+    return 1;
+  } else {
+    printf("Connected.\n");
+  }
+
   while (true) {
     printf("Hello, world!\n");
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
@@ -50,4 +65,6 @@ int main() {
     float temperature = read_onboard_temperature(TEMPERATURE_UNITS);
     printf("Onboard temperature = %.02f %c\n", temperature, TEMPERATURE_UNITS);
   }
+
+  cyw43_arch_deinit();
 }

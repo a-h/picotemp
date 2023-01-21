@@ -7,7 +7,7 @@ PicoW temperature sensor.
 ### build
 
 ```
-cmake -DPICO_BOARD=pico_w . && make
+cmake -DWIFI_SSID=${WIFI_SSID} -DWIFI_PASSWORD=${WIFI_PASSWORD} -DPICO_BOARD=pico_w . && make
 ```
 
 ### upload

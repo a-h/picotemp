@@ -22,12 +22,22 @@ add_executable(main
     # main_hello.c
     # irq.c
 )
+target_include_directories(main PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}
+  ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts
+)
+
+target_compile_definitions(main PRIVATE
+	WIFI_SSID=\"${WIFI_SSID}\"
+	WIFI_PASSWORD=\"${WIFI_PASSWORD}\"
+)
 
 # Add pico_stdlib library which aggregates commonly used features.
 target_link_libraries(main
   pico_stdlib
   hardware_pwm
-  pico_cyw43_arch_none # require to flash the LED
+  pico_cyw43_arch_lwip_threadsafe_background
+  pico_stdlib
   hardware_adc # required to read temperature
 )
 
