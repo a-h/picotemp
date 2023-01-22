@@ -6,7 +6,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
 
-project(counter)
+project(picotemp C CXX ASM)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 # initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
@@ -24,7 +26,6 @@ add_executable(main
 )
 target_include_directories(main PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
-  ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts
 )
 
 target_compile_definitions(main PRIVATE
@@ -37,7 +38,6 @@ target_link_libraries(main
   pico_stdlib
   hardware_pwm
   pico_cyw43_arch_lwip_threadsafe_background
-  pico_stdlib
   hardware_adc # required to read temperature
 )
 
