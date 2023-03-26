@@ -1,15 +1,1 @@
-pico-sdk
-Makefile
-CMakeFiles
-elf2uf2
-generated
-CMakeCache.txt
-cmake_install.cmake
-pioasm
-main.bin
-main.dis
-main.elf*
-main.hex
-main.uf2
-.ccls-cache
-compile_commands.json
+secrets.py
