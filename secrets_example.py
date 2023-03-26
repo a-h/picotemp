@@ -4,7 +4,7 @@ secrets = {
     'wifi_ip' : 'your-static-ip-here',
     'wifi_subnet' : '255.255.255.0',
     'wifi_gateway' : '192.168.0.1',
-    'wifi_dns' : '1.1.1.1',
+    'wifi_dns' : '192.168.0.1',
     'mqtt_broker' : 'your-mqtt-broker-ip-here',
     'mqtt_port' : 1883,
     'mqtt_topic_temp' : 'your-mqtt-temp-publish-topic-here',
