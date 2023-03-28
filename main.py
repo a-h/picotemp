@@ -4,6 +4,7 @@ import ubinascii
 import machine
 import time
 import socket
+import random
 
 # Sensor library.
 import dht
@@ -56,7 +57,9 @@ port = secrets['mqtt_port']
 topic = secrets['mqtt_topic']
 username = secrets['mqtt_user']
 password = secrets['mqtt_password']
-clientID = ubinascii.hexlify(machine.unique_id())
+
+random.seed(int.from_bytes(machine.unique_id(),"little"))
+clientID = str(random.randint(0,65535))
 
 # Write a message to the display.
 display.fill(0)
@@ -109,15 +112,34 @@ print("") # Create a newline
 if wlan.status() != 3:
     # Wifi Failure!
     
+    println("Error! WiFi: " + wifi.status())
+    
     # Display a message to the display.
     display.fill(0)
-    display.text('Wifi Failed!', 0, 0, 1)
-    display.text('Error code: '+ wlan.status(), 0, 10, 1)
+    display.text('Error!', 0, 0, 1)
+    statuscode = wlan.status()
+    if statuscode == "0":
+        display.text('WiFi: lnk down', 0, 10, 1)
+    elif statuscode == "1":
+        display.text('WiFi: lnk join', 0, 10, 1)
+    elif statuscode == "2":
+        display.text('WiFi: lnk noip', 0, 10, 1)
+    elif statuscode == "-1":
+        display.text('WiFi: lnk fail', 0, 10, 1)
+    elif statuscode == "-2":
+        display.text('WiFi: lnk nonet', 0, 10, 1)
+    elif statuscode == "-3":
+        display.text('WiFi: lnk bad auth', 0, 10, 1)
+    else:
+        display.text('WiFi: ' + statuscode, 0, 10, 1)
     display.invert(True)
     display.show()
     
-    # Return an error.
-    raise RuntimeError('WiFi connection failed! Expected status: 3, Actual status: ' + wlan.status())
+    # Wait so the error can be read.
+    time.sleep(10)
+  
+    # Restart from the top.
+    machine.reset()
 else:
     # Wifi Success!
     status = wlan.ifconfig() # Get the IP address.
@@ -135,7 +157,9 @@ else:
 
 def connect_and_subscribe():
   global client, mqtt_server # Theese variables are available outside this function.
-  client = MQTTClient(clientID, broker, port, username, password) # Configure the MQTT settings.
+
+# https://community.home-assistant.io/t/mqtt-fails-identifier-rejected-after-broker-update-to-6-2-0/553193
+  client = MQTTClient(clientID, broker, port, username, password, keepalive=60) # Configure the MQTT settings. Keepalive helps to prevent idntity error.
   client.connect() # Connect to the MQTT broker.
   
   print('Connected to %s MQTT broker as client ID: %s' % (broker, client))
@@ -150,12 +174,64 @@ def connect_and_subscribe():
   
   return client
 
-# If there is an error, display a message and then restart from the beginning.
-def restart_and_reconnect():
+# MQTT Errors: https://www.vtscada.com/help/Content/D_Tags/D_MQTT_ErrMsg.htm
+
+# If there is an error with mqtt, display a message and then restart from the beginning.
+def restart_and_reconnect(e):
+  print("Error! " + str(e))
   # Write the message.
   display.fill(0)
   display.text('Error!', 0, 0, 1)
-  display.text("Resetting...", 0, 10, 1)
+  errorstring = str(e)
+  if errorstring == "1":
+      display.text("MQTT: proc ver", 0, 10, 1)
+  elif errorstring == "10":
+      display.text("MQTT: time SUBACK", 0, 10, 1)
+  elif errorstring == "11":
+      display.text("MQTT: time UNSUBACK", 0, 10, 1)
+  elif errorstring == "12":
+      display.text("MQTT: time PINGRESP", 0, 10, 1)  
+  elif errorstring == "13":
+      display.text("MQTT: malf rleng", 0, 10, 1)
+  elif errorstring == "14":
+      display.text("MQTT: comm err", 0, 10, 1)
+  elif errorstring == "15":
+      display.text("MQTT: addr err", 0, 10, 1)
+  elif errorstring == "16":
+      display.text("MQTT: malf pck", 0, 10, 1)
+  elif errorstring == "17":
+      display.text("MQTT: sub fail", 0, 10, 1)
+  elif errorstring == "18":
+      display.text("MQTT: payload err", 0, 10, 1)
+  elif errorstring == "19":
+      display.text("MQTT: dec comp fail", 0, 10, 1)
+  elif errorstring == "2":
+      display.text("MQTT: ident rej", 0, 10, 1)
+  elif errorstring == "20":
+      display.text("MQTT: pck supp. err", 0, 10, 1)
+  elif errorstring == "21":
+      display.text("MQTT: time PUBACK", 0, 10, 1)
+  elif errorstring == "22":
+      display.text("MQTT: time PUBREC", 0, 10, 1)
+  elif errorstring == "23":
+      display.text("MQTT: time PUBCOMP", 0, 10, 1)
+  elif errorstring == "3":
+      display.text("MQTT: server unavail", 0, 10, 1)
+  elif errorstring == "4":
+      display.text("MQTT: user/pass err", 0, 10, 1)
+  elif errorstring == "5":
+      display.text("MQTT: authorize err", 0, 10, 1)
+  elif errorstring == "6":
+      display.text("MQTT: conn lost", 0, 10, 1)
+  elif errorstring == "7":
+      display.text("MQTT: time leng", 0, 10, 1)
+  elif errorstring == "8":
+      display.text("MQTT: time payl", 0, 10, 1)
+  elif errorstring == "9":
+      display.text("MQTT: time CONNACK", 0, 10, 1)
+  else:
+      display.text(errorstring, 0, 10, 1)
+  display.text("Resetting...", 0, 20, 1)
   display.invert(True)
   display.show()
   
@@ -167,8 +243,8 @@ def restart_and_reconnect():
 
 try:
   client = connect_and_subscribe() # Connect to the MQTT broker.
-except OSError as e:
-  restart_and_reconnect() # If there is an error, reset and try again.
+except Exception as e:
+  restart_and_reconnect(e) # If there is an error, reset and try again.
 
 # The main loop:
 
@@ -205,5 +281,5 @@ while True: # Forever.
            
           last_message = time.time() # Store the last time the display/MQTT was updated.
       time.sleep_ms(10) # Check the time every 10 milliseconds.
-  except OSError as e:
-    restart_and_reconnect() # If there is an error, reset the device and try again.
+  except Exception as e:
+    restart_and_reconnect(e) # If there is an error, reset the device and try again.
