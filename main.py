@@ -2,25 +2,27 @@ import rp2
 import network
 import ubinascii
 import machine
+from machine import Pin, I2C
+from utime import sleep
 import time
 import socket
 import random
 
 # Sensor library.
-import dht
+from dht20 import DHT20
 
 # OLED library.
 from oled import ssd1306,gfx
 
 # MQTT library.
 from umqtt.simple import MQTTClient
-from machine import Pin, I2C
 
 # secrets.py
 from secrets import secrets
 
-# Configure the DHT22 sensor. This sensor reads temperature and humidity.
-sensor = dht.DHT22(Pin(2))
+# Configure the DHT20 sensor. This sensor reads temperature and humidity.
+i2c1 = I2C(1, sda=Pin(2), scl=Pin(3))
+dht20 = DHT20(0x38, i2c1)
 
 # Configure the I2C OLED display.
 i2c = I2C(0,sda=Pin(0), scl=Pin(1))
@@ -252,13 +254,13 @@ while True: # Forever.
   try:
       # If the time since the last message has been longer than the interval, send a message and update the display.
       if (time.time() - last_message) > message_interval:
-          # Tell the sensor to take a measurement.
-          sensor.measure()
+          # Get measurements from the sensor.
+          measurements = dht20.measurements
           
           # Get the sensor results
-          temperature = sensor.temperature()
+          temperature = measurements['t'] # Temperature
           temp_pub_msg = str(temperature)
-          hum = sensor.humidity()
+          hum = measurements['rh'] # Relative Humidity
           hum_pub_msg = str(hum)
           
           # Turn into json for publishing.
