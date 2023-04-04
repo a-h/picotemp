@@ -13,16 +13,60 @@
           "user_id": "2b10d493e4c044c4ba4645c3bf285ab5",
           "friendly_name": "user"
         },
-        "last_changed": "2023-04-04T14:56:52.433970+00:00",
-        "last_updated": "2023-04-04T14:56:56.222710+00:00",
+        "last_changed": "2023-04-04T15:16:35.031993+00:00",
+        "last_updated": "2023-04-04T15:16:38.729662+00:00",
         "context": {
-          "id": "01GX6CAQWY0RM9B4G17XXH58AY",
+          "id": "01GX6DETP92CX8CYAENPKZBH5V",
           "parent_id": null,
           "user_id": null
         }
       },
       "extra_data": null,
-      "last_seen": "2023-04-04T15:05:24.994960+00:00"
+      "last_seen": "2023-04-04T15:24:04.346899+00:00"
+    },
+    {
+      "state": {
+        "entity_id": "sensor.example_temperature",
+        "state": "unknown",
+        "attributes": {
+          "unit_of_measurement": "°C",
+          "friendly_name": "Example Temperature"
+        },
+        "last_changed": "2023-04-04T15:16:38.705598+00:00",
+        "last_updated": "2023-04-04T15:16:38.705598+00:00",
+        "context": {
+          "id": "01GX6DETNHR817BQ5MGZY4S51M",
+          "parent_id": null,
+          "user_id": null
+        }
+      },
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": "°C"
+      },
+      "last_seen": "2023-04-04T15:24:04.346899+00:00"
+    },
+    {
+      "state": {
+        "entity_id": "sensor.example_humidity",
+        "state": "unknown",
+        "attributes": {
+          "unit_of_measurement": "%",
+          "friendly_name": "Example Humidity"
+        },
+        "last_changed": "2023-04-04T15:16:38.708666+00:00",
+        "last_updated": "2023-04-04T15:16:38.708666+00:00",
+        "context": {
+          "id": "01GX6DETNMBEDT759DTXPX0557",
+          "parent_id": null,
+          "user_id": null
+        }
+      },
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2023-04-04T15:24:04.346899+00:00"
     }
   ]
 }
