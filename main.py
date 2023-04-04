@@ -276,8 +276,8 @@ while True: # Forever.
           display.fill(0) # Clear the screen
           display.text(status[0], 0, 0, 1) # Draw the current IP in the top left.
           graphics.hline(0,8,128,1) # Draw a horizontal line with x=0, y=8, width=128 (the width of the screen) and the color of 1 (white).
-          display.text("Temp.: " + str(temperature) + "C", 0, 10, 1) # Draw the temperature with a 'C' on the end.
-          display.text("Humidity: " + str(hum) + "%", 0, 20, 1) # Draw the humidity with a '%' on the end.
+          display.text("Temp.: " + str(round(temperature,2)) + "C", 0, 10, 1) # Draw the temperature with a 'C' on the end.
+          display.text("Humidity: " + str(round(hum,2)) + "%", 0, 20, 1) # Draw the humidity with a '%' on the end.
           display.invert(False) # Do not invert the colors.
           display.show() # Write the changes to the display.
            
