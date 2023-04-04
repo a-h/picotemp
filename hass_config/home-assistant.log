@@ -1,0 +1,10 @@
+2023-04-04 15:56:55.954 ERROR (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Unable to connect to the MQTT broker: Connection Refused: not authorised.
+2023-04-04 15:56:55.963 WARNING (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Disconnected from MQTT server picotemp-mqtt-1:1883 (5)
+2023-04-04 15:56:56.968 ERROR (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Unable to connect to the MQTT broker: Connection Refused: not authorised.
+2023-04-04 15:56:56.969 WARNING (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Disconnected from MQTT server picotemp-mqtt-1:1883 (5)
+2023-04-04 15:56:58.972 ERROR (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Unable to connect to the MQTT broker: Connection Refused: not authorised.
+2023-04-04 15:56:58.973 WARNING (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Disconnected from MQTT server picotemp-mqtt-1:1883 (5)
+2023-04-04 15:57:02.977 ERROR (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Unable to connect to the MQTT broker: Connection Refused: not authorised.
+2023-04-04 15:57:02.977 WARNING (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Disconnected from MQTT server picotemp-mqtt-1:1883 (5)
+2023-04-04 15:57:10.980 ERROR (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Unable to connect to the MQTT broker: Connection Refused: not authorised.
+2023-04-04 15:57:10.981 WARNING (Thread-2 (_thread_main)) [homeassistant.components.mqtt.client] Disconnected from MQTT server picotemp-mqtt-1:1883 (5)

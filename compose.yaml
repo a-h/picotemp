@@ -1,0 +1,23 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto_pass.txt:/mosquitto/config/mosquitto_pass.txt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    networks:
+      - mosquitto
+  home-assistant:
+    image: homeassistant/home-assistant
+    depends_on: [mqtt]
+    volumes:
+      - ./hass_config:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8123:8123"
+    networks:
+      - mosquitto
+networks:
+  mosquitto:

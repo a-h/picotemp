@@ -10,6 +10,28 @@ Here is the layout for the circuit.
 
 ![A circuit diagram](diagram.png "Made in Fritzing")
 
+## Setting up Home Assistant/MQTT.
+
+### Setting up with Docker Compose.
+
+First, use the command `docker compose up` to run the `compose.yaml` file. This should create an instance of home-assistant running at [http://localhost:8123](http://localhost:8123). Log in with username: `user` and password: `12345`. It is already set up with an mqtt broker.
+
+### Creating displays for MQTT data.
+
+To create a display for the MQTT data, open the file `hass_config/configuration.yaml` and add an mqtt sensor like this:
+```yaml
+mqtt:
+  sensor:
+    - name: "Conservatory Temperature"
+      state_topic: "home-assistant/conservatory-sensor/sensor"
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temperature }}"
+    - name: "Conservatory Humidity"
+      state_topic: "home-assistant/conservatory-sensor/sensor"
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.humidity }}"
+```
+
 ## Guide
 
 ### Installing Thonny.

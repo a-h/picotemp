@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "core.restore_state",
+  "data": [
+    {
+      "state": {
+        "entity_id": "person.user",
+        "state": "unknown",
+        "attributes": {
+          "editable": true,
+          "id": "user",
+          "user_id": "2b10d493e4c044c4ba4645c3bf285ab5",
+          "friendly_name": "user"
+        },
+        "last_changed": "2023-04-04T14:56:52.433970+00:00",
+        "last_updated": "2023-04-04T14:56:56.222710+00:00",
+        "context": {
+          "id": "01GX6CAQWY0RM9B4G17XXH58AY",
+          "parent_id": null,
+          "user_id": null
+        }
+      },
+      "extra_data": null,
+      "last_seen": "2023-04-04T15:05:24.994960+00:00"
+    }
+  ]
+}
