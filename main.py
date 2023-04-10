@@ -69,9 +69,6 @@ display.text('Secrets Imported!', 0, 0, 1)
 display.invert(False)
 display.show()
 
-# Configure the Wifi connection settings.
-wlan.ifconfig((secrets['wifi_ip'], secrets['wifi_subnet'], secrets['wifi_gateway'] , secrets['wifi_dns'])) # ([(ip, subnet, gateway, dns)])
-
 # Write a message on the display.
 display.fill(0)
 display.text('WiFi Configured!', 0, 0, 1)
