@@ -61,8 +61,8 @@ Now, replace the placeholders for the correct data. Once that is done, use [File
 
 Make sure the pico is plugged in, then in Thonny, press the button labled 'STOP' to connect to the pico, then use [View > Files] which will open a side-panel showing the current folder on top, and the pico's storage below.
 
-If there is anything in the pico's window, right click and press delete until the storage is empty. Now right click on the folder called 'lib' at the top and select 'Copy to /'. This might take a while!
+If there is anything in the pico's window, right click and press delete until the storage is empty. Now right click on the folder called 'lib' at the top and select 'Upload to /' (older versions of Thonny will say 'Copy to /'). This might take a while!
 
-Finally, right click on main.py and click 'Copy to /'. Do this again for secrets.py.
+Finally, right click on main.py and click 'Upload to /'. Do this again for secrets.py.
 
-When you unplug the pico and plug it back in, it will run the program.
+When you unplug the Pico and plug it back in, it will run the program.
