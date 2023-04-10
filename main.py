@@ -33,11 +33,6 @@ display.text('Display Init!', 0, 0, 1)
 display.invert(False)
 display.show()
 
-# Count how often messages are sent - one every 5 seconds.
-last_message = 0
-message_interval = 5
-counter = 0
-
 # Set country to avoid possible errors / https://randomnerdtutorials.com/micropython-mqtt-esp32-esp8266/
 rp2.country('GB')
 
@@ -68,9 +63,6 @@ display.fill(0)
 display.text('Secrets Imported!', 0, 0, 1)
 display.invert(False)
 display.show()
-
-# Configure the Wifi connection settings.
-wlan.ifconfig((secrets['wifi_ip'], secrets['wifi_subnet'], secrets['wifi_gateway'] , secrets['wifi_dns'])) # ([(ip, subnet, gateway, dns)])
 
 # Write a message on the display.
 display.fill(0)
@@ -150,7 +142,7 @@ else:
     # Display a message to the display.
     display.fill(0)
     display.text('Wifi Connected!', 0, 0, 1)
-    display.text('IP Address:',0,10,1)
+    display.text('IP Address:', 0, 10, 1)
     display.text(status[0], 0, 20, 1)
     display.invert(False)
     display.show()
@@ -248,8 +240,11 @@ try:
 except Exception as e:
   restart_and_reconnect(e) # If there is an error, reset and try again.
 
-# The main loop:
+# Count how often messages are sent - one every 5 seconds.
+last_message = 0
+message_interval = 5
 
+# The main loop:
 while True: # Forever.
   try:
       # If the time since the last message has been longer than the interval, send a message and update the display.
